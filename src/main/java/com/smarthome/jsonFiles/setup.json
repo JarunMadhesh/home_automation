@@ -1,0 +1,30 @@
+{
+  "home id": 1,
+  "home name": "Nalla veedu",
+  "rooms" : [
+    {
+      "id" : 1,
+      "name" : "Master bedroom",
+      "sleep time" : "22:00:00",
+      "wakeup time" : "06:00:00",
+      "fan" : [
+        { "id" : 1, "name" : "Fan1", "max speed": 5 }
+      ],
+      "light" : [
+        { "id" : 1, "name": "Dim lights" },
+        { "id" : 2, "name": "Night light" },
+        { "id" : 3, "name": "Bright lights" }
+      ],
+      "Ac" : [
+        { "id" : 1, "name" : "Ac1" }
+      ],
+      "windows": [
+        { "id": 1, "name": "window1" },
+        { "id": 2, "name": "window2" }
+      ],
+      "Door": [
+        { "id": 1, "name": "door1" }
+      ]
+    }
+  ]
+}

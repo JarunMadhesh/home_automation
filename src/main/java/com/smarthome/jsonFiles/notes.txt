@@ -1,0 +1,78 @@
+Light sensor
+    0-1023
+    dark <10
+    dim <200
+    bright <800
+    else very bright
+
+Temperature sensor
+    in *C
+    0-18 very cold
+    18-24 cold
+    24-28 normal
+    28-32 warm
+    32-40 hot
+    >40 very hot
+
+PIR sensor
+    1/0 if motion detected
+
+
+{
+      "id" : 0,
+      "name" : "Children beedroom",
+      "sleep time" : "21:00:00",
+      "wakeup time" : "07:00:00",
+      "fan" : [
+        { "id" : 1, "name" : "Fan1", "max speed": 5 }
+      ],
+      "light" : [
+        {"id" : 1, "name": "Mood lights"},
+        {"id" : 2, "name": "Night light"},
+        {"id" : 3, "name": "Bright lights"}
+      ],
+      "Ac" : [],
+      "windows": [
+        { "id": 1, "name": "window1" },
+        { "id": 2, "name": "window2" }
+      ],
+      "Door": [
+        { "id": 1, "name": "door1" }
+      ]
+    },
+    {
+      "id" : 2,
+      "name": "Grandpa room",
+      "sleep time" : "23:00:00",
+      "wakeup time" : "08:00:00",
+      "fan" : [
+        {
+          "id" : 1,
+          "name" : "Fan1",
+          "max speed": 5
+        }
+      ],
+      "light" : [
+        {"id" : 0,
+          "name": "Night light"},
+        {"id" : 1,
+          "name": "Bright lights"}
+      ],
+      "Ac" : [],
+      "windows": [
+        {
+          "id": 1,
+          "name": "window1"
+        },
+        {
+          "id": 2,
+          "name": "window2"
+        }
+      ],
+      "Door": [
+        {
+          "id": 1,
+          "name": "door1"
+        }
+      ]
+    }
