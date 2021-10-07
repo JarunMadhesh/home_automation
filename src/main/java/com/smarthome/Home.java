@@ -17,6 +17,8 @@ public class Home {
         homeName = (String) obj.get("home name");
         JSONArray roomsData = (JSONArray) obj.get("rooms");
 
+        System.out.println("Welcome to "+ homeName+ ".\n");
+
         for(int i=0; i<roomsData.size(); i++) {
 
             JSONObject room = (JSONObject) roomsData.get(i);

@@ -8,7 +8,7 @@
       "sleep time" : "22:00:00",
       "wakeup time" : "06:00:00",
       "fan" : [
-        { "id" : 1, "name" : "Fan1", "max speed": 5 }
+        { "id" : 1, "name" : "Fan 1", "max speed": 5 }
       ],
       "light" : [
         { "id" : 1, "name": "Dim lights" },
@@ -16,14 +16,18 @@
         { "id" : 3, "name": "Bright lights" }
       ],
       "Ac" : [
-        { "id" : 1, "name" : "Ac1" }
+        { "id" : 1, "name" : "Ac 1" }
       ],
       "windows": [
-        { "id": 1, "name": "window1" },
-        { "id": 2, "name": "window2" }
+        { "id": 1, "name": "window 1" },
+        { "id": 2, "name": "window 2" }
+      ],
+      "windows Shade": [
+        { "id": 1, "name": "window shade 1" },
+        { "id": 2, "name": "window shade 2" }
       ],
       "Door": [
-        { "id": 1, "name": "door1" }
+        { "id": 1, "name": "door 1" }
       ]
     }
   ]

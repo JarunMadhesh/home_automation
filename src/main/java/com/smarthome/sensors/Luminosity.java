@@ -11,7 +11,7 @@ public class Luminosity {
 
     public void setLuminosity(long luminosity) {
         this.luminosity = luminosity;
-        System.out.println("\tLuminosity in "+ roomName+ " is set to "+ luminosity + "Candela.");
+        System.out.println("\tLuminosity in "+ roomName+ " is set to "+ luminosity + " lux.");
     }
 
     public long getLuminosity() {

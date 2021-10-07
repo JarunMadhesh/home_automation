@@ -29,7 +29,7 @@ public class Room {
     private final HashMap<Long, Lights> lights;
     private final HashMap<Long, Ac> ac;
     private final HashMap<Long, Fan> fan;
-//    private final HashMap<Long, Windows> windows;
+    private final HashMap<Long, Windows> windows;
     private final HashMap<Long, WindowShades> windowsScreen;
     private final HashMap<Long, Door> door;
 
@@ -50,6 +50,7 @@ public class Room {
         fan = new HashMap<Long, Fan>();
         door = new HashMap<Long, Door>();
         windowsScreen = new HashMap<Long, WindowShades>();
+        windows = new HashMap<Long, Windows>();
 
         JSONArray lightArray = (JSONArray) data.get("light");
         for (Object o : lightArray) {
@@ -74,6 +75,13 @@ public class Room {
 
         JSONArray windowArray = (JSONArray) data.get("windows");
         for (Object o : windowArray) {
+            JSONObject obj = (JSONObject) o;
+            windows.put((Long) obj.get("id"), new Windows(obj, name));
+            System.out.println("\t"+ obj.get("name")+" setting up complete.");
+        }
+
+        JSONArray windowShadeArray = (JSONArray) data.get("windows Shade");
+        for (Object o : windowShadeArray) {
             JSONObject obj = (JSONObject) o;
             windowsScreen.put((Long) obj.get("id"), new WindowShades(obj, name));
             System.out.println("\t"+ obj.get("name")+" setting up complete.");
@@ -105,19 +113,26 @@ public class Room {
             for(Ac a: ac.values()) { a.turnOff(); }
             for(Lights l: lights.values()) { l.turnOff(); }
         } else {
+
 //            Regulating the temperature in the room
             long temp = temperature.getTemperature();
             if(temp <20) {
                 for(Ac a: ac.values()) { a.turnOff(); }
-                for(WindowShades w: windowsScreen.values()) {w.close();}
+                for(Windows w: windows.values()) {w.close();}
             } else if(temp <26) {
                 for(Fan f: fan.values()) { f.turnOff(); }
             } else if(temp <32) {
                 for(Fan f: fan.values()) { f.turnOn(); }
             } else {
                 for(Ac a: ac.values()) { a.turnOn(); }
+                for(Windows w: windows.values()) {w.close();}
                 for(WindowShades w: windowsScreen.values()) {w.close();}
                 for(Door d: door.values()) {d.close();}
+                for(Lights l: lights.values()) {
+                    if("Dim lights".equals(l.getName())) {
+                        l.turnOn();
+                    }
+                }
             }
 
 //            Regulating the luminance of the room
@@ -144,6 +159,8 @@ public class Room {
                     for(Lights l: lights.values()) {
                         if(s.equals(l.getName())) {
                             l.turnOn();
+                        } else {
+                            l.turnOff();
                         }
                     }
                 }
