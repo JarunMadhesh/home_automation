@@ -19,12 +19,11 @@ public class Home {
 
         System.out.println("Welcome to "+ homeName+ ".\n");
 
-        for(int i=0; i<roomsData.size(); i++) {
-
-            JSONObject room = (JSONObject) roomsData.get(i);
-            System.out.println(room.get("name")+" setting up.");
+        for (Object roomsDatum : roomsData) {
+            JSONObject room = (JSONObject) roomsDatum;
+            System.out.println(room.get("name") + " setting up.");
             rooms.put((Long) room.get("id"), new Room(room));
-            System.out.println(room.get("name")+" setting up complete.\n");
+            System.out.println(room.get("name") + " setting up complete.\n");
         }
     }
 

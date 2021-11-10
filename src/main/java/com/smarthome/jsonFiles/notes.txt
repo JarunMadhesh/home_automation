@@ -1,5 +1,5 @@
 Light sensor
-    0-1023
+    0-1023 Lux
     dark <10
     dim <200
     bright <800
