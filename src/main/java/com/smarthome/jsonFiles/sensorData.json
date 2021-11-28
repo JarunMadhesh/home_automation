@@ -2,30 +2,34 @@
     {
       "room id": 1,
       "Activity" : 1,
+      "weekendViber" : 0,
       "Temperature" : 20,
       "Luminosity" : 100
     },
     {
       "room id": 1,
       "Activity" : 0,
+      "weekendViber" : 0,
       "Temperature" : 32,
       "Luminosity" : 300
     },
     {
       "room id": 1,
       "Activity" : 1,
+      "weekendViber" : 1,
       "Temperature" : 34,
       "Luminosity" : 100
     },
     {
       "room id": 1,
-      "Activity" : 1,
+      "weekendViber" : 0,
       "Temperature" : 32,
       "Luminosity" : 10
     },
     {
       "room id": 1,
       "Activity" : 0,
+      "weekendViber" : 0,
       "Temperature" : 32,
       "Luminosity" : 20
     }

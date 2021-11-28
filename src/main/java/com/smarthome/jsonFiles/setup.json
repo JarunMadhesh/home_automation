@@ -6,6 +6,7 @@
       "id" : 1,
       "name" : "Master bedroom",
       "sleep time" : "22:00:00",
+      "weekendViber": 1,
       "wakeup time" : "06:00:00",
       "fan" : [
         { "id" : 1, "name" : "Fan 1", "max speed": 5 }

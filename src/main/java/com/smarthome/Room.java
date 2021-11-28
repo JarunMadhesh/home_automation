@@ -17,6 +17,7 @@ public class Room {
     private String name;
     private String sleepTime;
     private String wakeUpTime;
+    private Long weekendViber;
 
 
     private final Luminosity luminosity;
@@ -97,9 +98,39 @@ public class Room {
 
     public void updateSensorData(JSONObject obj) {
         System.out.println("Updating sensor data...");
+        // If PIR sensor fails, it checks for the lights, ac, and fan of the room.
+        // if everything is turned off, it assumes that the person is
+        // not in the room.
+        if(obj.get("Activity")!=null)
+            activity.setPersonPresent((Long) obj.get("Activity") == 1);
+        else {
+            boolean flag = false;
+            for(Fan f: fan.values()) {
+                if (f.isOn()) {
+                    flag = true;
+                    break;
+                }
+            }
+            for(Ac a: ac.values()) {
+                if (a.isOn()) {
+                    flag = true;
+                    break;
+                }
+            }
+            for(Lights l: lights.values()) {
+                if (l.isOn()) {
+                    flag = true;
+                    break;
+                }
+            }
+            System.out.println("There is some problem with the PIR sensor, but with the state of the entities in" +
+                    "the environment, we find that the person activity is: " + flag);
+
+            activity.setPersonPresent(flag);
+        }
         luminosity.setLuminosity((Long) obj.get("Luminosity"));
         temperature.setTemperature((Long) obj.get("Temperature"));
-        activity.setPersonPresent((Long) obj.get("Activity") == 1);
+        weekendViber = (Long) obj.get("weekendViber");
         System.out.println("Context aware behaviour...");
         cab();
         System.out.println("Dot.\n");
@@ -139,22 +170,37 @@ public class Room {
             long lumi = luminosity.getLuminosity();
             if(lumi <= 200) {
                 if(time.isGivenTimeIsBetween(sleepTime, wakeUpTime)) {
-                    for(WindowShades w: windowsScreen.values()) {w.close();}
-                    for(Lights l: lights.values()) {
-                        if("Night lights".equals(l.getName())) {
-                            l.turnOn();
-                        } else {
-                            l.turnOff();
+                    // ~case based reasoning~
+                    // if the day is weekend and the person is a weekend viber,
+                    // lights will not be turned off.
+                    // Weekend viber is understood from his/her previous records.
+                    if(!(weekendViber == 1 && time.isWeekend())){
+                        for(WindowShades w: windowsScreen.values()) {w.close();}
+                        for(Lights l: lights.values()) {
+                            if("Night lights".equals(l.getName())) {
+                                l.turnOn();
+                            } else {
+                                l.turnOff();
+                            }
                         }
                     }
                 } else {
-                    String s;
+                    String s = "";
+                    // In case any bugs/insects hides or any object is kept over the light sensor,
+                    // it may cause a dip in luminance for a significant amount.
+                    // This would cause a false alarm. so it checks for the time of the day to determine.
                     if(lumi<=10){
-                        s = "Bright lights";
-                        for(WindowShades w: windowsScreen.values()) {w.close();}
+                        if(!time.isGivenTimeIsBetween("06:00:00", "18:00:00")) {
+                            s = "Bright lights";
+                            for(WindowShades w: windowsScreen.values()) {w.close();}
+                        }
                     } else {
-                        s = "Dim lights";
-                        for(WindowShades w: windowsScreen.values()) {w.open();}
+                        if(!time.isGivenTimeIsBetween("06:00:00", "18:00:00")) {
+                            s = "Dim lights";
+                            for (WindowShades w : windowsScreen.values()) {
+                                w.open();
+                            }
+                        }
                     }
                     for(Lights l: lights.values()) {
                         if(s.equals(l.getName())) {

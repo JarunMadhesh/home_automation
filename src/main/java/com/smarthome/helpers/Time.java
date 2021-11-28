@@ -5,6 +5,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Period;
+import java.util.Objects;
 
 public class Time {
 
@@ -55,5 +56,9 @@ public class Time {
     public boolean isGivenTimeIsBetween(String time1, String time2) {
         LocalTime now = LocalTime.now();
         return now.isAfter(LocalTime.parse(time1)) && now.isBefore(LocalTime.parse(time2));
+    }
+
+    public boolean isWeekend() {
+        return Objects.equals(LocalDateTime.now().getDayOfWeek().toString(), "SUNDAY") || Objects.equals(LocalDateTime.now().getDayOfWeek().toString(), "SATURDAY") || Objects.equals(LocalDateTime.now().getDayOfWeek().toString(), "FRIDAY");
     }
 }
